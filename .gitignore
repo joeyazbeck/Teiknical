@@ -1,0 +1,29 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Generated SQLite database
+cell_counts.db
+
+# Generated output files
+cell_count_summary.csv
+part3_responder_data.csv
+part3_responder_stats.csv
+part3_summary.txt
+part3_responder_boxplots.png
+part4_*.csv
+filtered_*.csv
+
+# Streamlit
+.streamlit/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
