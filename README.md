@@ -42,7 +42,7 @@
 
 # 
 
-# `load\_data.py` creates a SQLite database called `cell\_counts.db` from the input CSV file.
+# `load_data.py` creates a SQLite database called `cell\_counts.db` from the input CSV file.
 
 # 
 
@@ -84,7 +84,7 @@
 
 # 
 
-# `initial\_analysis.py` calculates the total cell count for each sample and the percentage contribution of each immune-cell population.
+# `initial_analysis.py` calculates the total cell count for each sample and the percentage contribution of each immune-cell population.
 
 # 
 
@@ -120,7 +120,7 @@
 
 # 
 
-# `statistical\_analysis.py` compares immune-cell population percentages between responders and non-responders for melanoma PBMC samples treated with miraclib.
+# `statistical_analysis.py` compares immune-cell population percentages between responders and non-responders for melanoma PBMC samples treated with miraclib.
 
 # 
 
@@ -144,7 +144,7 @@
 
 # 
 
-# `data\_subset\_analysis.py` identifies baseline melanoma PBMC samples from patients treated with miraclib.
+# `data_subset_analysis.py` identifies baseline melanoma PBMC samples from patients treated with miraclib.
 
 # 
 
