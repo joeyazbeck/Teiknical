@@ -1,316 +1,209 @@
-# \# Teiknical
+# Teiknical
 
-# 
 
-# This repository contains my solution for the Teiko technical assessment. The project loads immune-cell count data from a CSV file into a normalized SQLite database, performs analysis on immune-cell population counts and percentages, and provides an interactive Streamlit dashboard for exploring the results.
+This repository contains my solution for the Teiko technical assessment. The project loads immune-cell count data from a CSV file into a normalized SQLite database, performs analysis on immune-cell population counts and percentages, and provides an interactive Streamlit dashboard for exploring the results.
 
-# 
 
-# \## Project Structure
+# Project Structure
 
-# 
+Teiknical/
 
-# ```text
+ ├── cell-count.csv
 
-# Teiknical/
+ ├── load\_data.py
 
-# ├── cell-count.csv
+ ├── initial\_analysis.py
 
-# ├── load\_data.py
+ ├── statistical\_analysis.py
 
-# ├── initial\_analysis.py
+ ├── data\_subset\_analysis.py
 
-# ├── statistical\_analysis.py
+ ├── dashboard.py
 
-# ├── data\_subset\_analysis.py
+ ├── requirements.txt
 
-# ├── dashboard.py
+ ├── Makefile
 
-# ├── requirements.txt
+ ├── README.md
 
-# ├── Makefile
+ └── LICENSE
 
-# ├── README.md
+# Part 1: Data Management
 
-# └── LICENSE
+`load_data.py` creates a SQLite database called `cell_counts.db` from the input CSV file.
 
-# ```
+ The database contains the following tables:
 
-# 
+ \* projects
+ 
+ \* treatments
+ 
+ \* cell_populations
+ 
+ \* subjects
+ 
+ \* samples
+ 
+ \* cell_counts
+ 
+ 
+ The schema separates repeated metadata into relational tables and stores immune-cell counts in a normalized format.
+ To create the database manually:
+ 
+ python load\_data.py
 
-# \## Part 1: Data Management
+# Part 2: Initial Cell Count Analysis
 
-# 
 
-# `load_data.py` creates a SQLite database called `cell\_counts.db` from the input CSV file.
+ `initial_analysis.py` calculates the total cell count for each sample and the percentage contribution of each immune-cell population.
 
-# 
 
-# The database contains the following tables:
+ The output contains:
 
-# 
+ 
 
-# \* `projects`
+ \* sample ID
 
-# \* `treatments`
+ \* total cell count
 
-# \* `cell\_populations`
+ \* immune-cell population name
 
-# \* `subjects`
+ \* raw count
 
-# \* `samples`
+ \* percentage of total cell count
 
-# \* `cell\_counts`
+ 
 
-# 
+ To run the initial analysis:
 
-# The schema separates repeated metadata into relational tables and stores immune-cell counts in a normalized format.
 
-# 
+ python initial\_analysis.py
 
-# To create the database manually:
 
-# 
+# Part 3: Responder vs Non-Responder Analysis
 
-# ```bash
 
-# python load\_data.py
+`statistical_analysis.py` compares immune-cell population percentages between responders and non-responders for melanoma PBMC samples treated with miraclib.
 
-# ```
 
-# 
+The analysis uses a Mann-Whitney U test to compare responder and non-responder groups for each immune-cell population.
 
-# \## Part 2: Initial Cell Count Analysis
 
-# 
 
-# `initial_analysis.py` calculates the total cell count for each sample and the percentage contribution of each immune-cell population.
+To run the responder analysis:
 
-# 
+python statistical\_analysis.py
 
-# The output contains:
 
-# 
 
-# \* sample ID
+# Part 4: Bob's Data Subset Analysis
 
-# \* total cell count
 
-# \* immune-cell population name
+`data_subset_analysis.py` identifies baseline melanoma PBMC samples from patients treated with miraclib.
 
-# \* raw count
 
-# \* percentage of total cell count
+It reports:
 
-# 
 
-# To run the initial analysis:
+ \* how many samples came from each project
 
-# 
+ \* how many subjects were responders or non-responders
 
-# ```bash
+ \* how many subjects were male or female
 
-# python initial\_analysis.py
+ \* the average number of B cells for melanoma male responders at time zero
 
-# ```
 
-# 
+ To run Bob's subset analysis:
 
-# \## Part 3: Responder vs Non-Responder Analysis
 
-# 
+ python data\_subset\_analysis.py
 
-# `statistical_analysis.py` compares immune-cell population percentages between responders and non-responders for melanoma PBMC samples treated with miraclib.
 
-# 
 
-# The analysis uses a Mann-Whitney U test to compare responder and non-responder groups for each immune-cell population.
 
-# 
+# Interactive Dashboard
 
-# To run the responder analysis:
 
-# 
+The project includes an interactive Streamlit dashboard in `dashboard.py`.
 
-# ```bash
+ The dashboard displays:
 
-# python statistical\_analysis.py
 
-# ```
+ \* database status and summary counts
 
-# 
+ \* Part 2 normalized immune-cell percentages
 
-# \## Part 4: Bob's Data Subset Analysis
+ \* Part 3 responder vs non-responder analysis
 
-# 
+ \* Part 4 Bob's baseline melanoma PBMC subset analysis
 
-# `data_subset_analysis.py` identifies baseline melanoma PBMC samples from patients treated with miraclib.
+ \* downloadable tables
 
-# 
+ \* interactive plots
 
-# It reports:
 
-# 
+# Dashboard Link
 
-# \* how many samples came from each project
+ After starting the dashboard locally, open:
 
-# \* how many subjects were responders or non-responders
+ http://localhost:8501
 
-# \* how many subjects were male or female
+ If port `8501` is already in use, Streamlit may provide a different local URL in the terminal.
 
-# \* the average number of B cells for melanoma male responders at time zero
 
-# 
+# Setup
 
-# To run Bob's subset analysis:
 
-# 
+Install the required Python packages:
 
-# ```bash
+pip install -r requirements.txt
 
-# python data\_subset\_analysis.py
+ Or using the Makefile:
 
-# ```
+ make setup
 
-# 
 
-# \## Interactive Dashboard
 
-# 
+# Run the Dashboard
 
-# The project includes an interactive Streamlit dashboard in `dashboard.py`.
+ The preferred way to launch the dashboard is:
 
-# 
+ make dashboard
 
-# The dashboard displays:
 
-# 
+ This creates the SQLite database if needed and starts the local Streamlit server.
 
-# \* database status and summary counts
 
-# \* Part 2 normalized immune-cell percentages
+ On Windows, if `make` is not available, run:
 
-# \* Part 3 responder vs non-responder analysis
+python load\_data.py
 
-# \* Part 4 Bob's baseline melanoma PBMC subset analysis
+python -m streamlit run dashboard.py
 
-# \* downloadable tables
 
-# \* interactive plots
 
-# 
 
-# \### Dashboard Link
+# Requirements
 
-# 
+ The main Python packages used are:
 
-# After starting the dashboard locally, open:
 
-# 
+ \* pandas
 
-# ```text
+ \* streamlit
 
-# http://localhost:8501
+ \* plotly
 
-# ```
+ \* scipy
 
-# 
+ \* matplotlib
 
-# If port `8501` is already in use, Streamlit may provide a different local URL in the terminal.
+ The project also uses Python standard-library modules including `sqlite3` and `pathlib`.
 
-# 
 
-# \## Setup
-
-# 
-
-# Install the required Python packages:
-
-# 
-
-# ```bash
-
-# pip install -r requirements.txt
-
-# ```
-
-# 
-
-# Or using the Makefile:
-
-# 
-
-# ```bash
-
-# make setup
-
-# ```
-
-# 
-
-# \## Run the Dashboard
-
-# 
-
-# The preferred way to launch the dashboard is:
-
-# 
-
-# ```bash
-
-# make dashboard
-
-# ```
-
-# 
-
-# This creates the SQLite database if needed and starts the local Streamlit server.
-
-# 
-
-# On Windows, if `make` is not available, run:
-
-# 
-
-# ```bash
-
-# python load\_data.py
-
-# python -m streamlit run dashboard.py
-
-# ```
-
-# 
-
-# \## Requirements
-
-# 
-
-# The main Python packages used are:
-
-# 
-
-# \* pandas
-
-# \* streamlit
-
-# \* plotly
-
-# \* scipy
-
-# \* matplotlib
-
-# 
-
-# The project also uses Python standard-library modules including `sqlite3` and `pathlib`.
-
-# 
-
-# \## Notes
-
-# 
-
-# Generated files such as the SQLite database, CSV outputs, text summaries, and figures are not tracked in Git. They can be regenerated by running the scripts.
+# Notes
+ Generated files such as the SQLite database, CSV outputs, text summaries, and figures are not tracked in Git. They can be regenerated by running the scripts.
 
 
 
